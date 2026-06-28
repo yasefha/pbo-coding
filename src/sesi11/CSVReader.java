@@ -5,35 +5,34 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CSVReader {
-
     public static void main(String[] args) {
 
         String csvFile = "D:\\Code\\pbo\\coding\\src\\sesi11\\student.csv";
         String line;
         String csvSplitBy = ",";
-
+        int indeks = 0;
         int jumlahBaris = 0;
+
+        System.out.println("NIM, NAMA, UMUR, PRODI");
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
-            // Membaca header
-            br.readLine();
-
             while ((line = br.readLine()) != null) {
+                indeks++;
 
-                String[] data = line.split(csvSplitBy);
+                if (indeks > 1) { // skip header
+                    String[] student = line.split(csvSplitBy);
 
-                System.out.println(
-                        "NIM : " + data[0]
-                        + ", Nama : " + data[1]
-                        + ", Umur : " + data[2]
-                        + ", Prodi : " + data[3]
-                );
-
-                jumlahBaris++;
+                    System.out.println(
+                        student[0] + ", " +
+                        student[1] + ", " +
+                        student[2] + ", " +
+                        student[3]
+                    );
+                    jumlahBaris++;
+                }
             }
-
-            System.out.println("\nJumlah data mahasiswa = " + jumlahBaris);
+            System.out.println("\nJunlah baris data: " + jumlahBaris);
 
         } catch (IOException e) {
             e.printStackTrace();
